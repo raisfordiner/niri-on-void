@@ -1,0 +1,37 @@
+{
+    "include": [
+      "$HOME/.config/waybar/modules",
+      ],
+    "layer": "top",
+    "position": "left",
+    "margin-top": 0,
+    "margin-bottom": 0,
+    "margin-left": 0,
+    //"margin-right": 3,
+    "spacing": 10,
+    "fixed-center": true,
+    "ipc": true,
+    //"gtk-layer-shell": true,
+  
+    "modules-left": [
+        "custom/toplimit",
+        "custom/power_vertical",
+        "niri/workspaces#kanji",
+        "custom/botlimit",
+        "custom/holdertext",
+    ],
+
+    "modules-center": [
+        "clock#time",
+        "custom/void",
+        "clock#date",
+    ], 
+
+    "modules-right": [
+        "custom/toplimit",
+        "pulseaudio/slider",
+        "backlight/slider",
+        "battery",
+        "custom/botlimit",
+    ],
+}

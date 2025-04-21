@@ -1,0 +1,219 @@
+{
+    "battery": {
+        //"interval": 5,
+        "align": 0,
+        "rotate": 0,
+        //"bat": "BAT1",
+        //"adapter": "ACAD",
+        "full-at": 100,
+        "design-capacity": false,
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": " {icon}\n{capacity}%",
+        "format-charging": "  \n{capacity}%",
+        "format-plugged": "  󱘖\n{capacity}%",
+        "format-alt-click": "click",
+        "format-full": " {icon}\nFull",
+        "format-alt": "{icon} {time}",
+        "format-icons": [
+            "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
+        ],
+        "format-time": "{H}h {M}min",
+        "tooltip": true,
+        "tooltip-format": "{timeTo} {power}w",
+        "on-click-middle": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
+        "on-click-right": "$HOME/.config/hypr/scripts/Wlogout.sh",
+
+    },
+    "custom/separator#line": {
+        "format": "|",
+        "interval": "once",
+        "tooltip": false
+    },
+
+    // Kanji / Japanese style
+    "niri/workspaces#kanji": {
+        "disable-scroll": true,
+        "show-special": false,
+        "all-outputs": true,
+        "format": "{icon}",
+        "persistent-workspaces": {
+            "*": 5
+        },
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+            "10": "十",
+        }
+    },
+
+    "temperature": {
+        "interval": 10,
+        "tooltip": true,
+        "hwmon-path": [
+            "/sys/class/hwmon/hwmon1/temp1_input",
+            "/sys/class/thermal/thermal_zone0/temp"
+        ],
+        //"thermal-zone": 0,
+        "critical-threshold": 80,
+        "format-critical": "{icon}\n{temperatureC}°C",
+        "format": "{temperatureC}°",
+        "format-icons": [
+            "󰈸"
+        ],
+        "on-click-right": "kitty --title nvtop sh -c 'nvtop'"
+    },
+
+    "backlight": {
+        "interval": 2,
+        "rotate": 1,
+        "format": "{icon}",
+        //"format-icons": ["󰃞", "󰃟", "󰃠"],
+        "format-icons": [
+            "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""
+        ],
+        "on-click": "",
+        "on-click-middle": "",
+        "on-click-right": "",
+        "on-update": "",
+        "on-scroll-up": "$HOME/.config/hypr/scripts/Brightness.sh --inc",
+        "on-scroll-down": "$HOME/.config/hypr/scripts/Brightness.sh --dec",
+        "smooth-scrolling-threshold": 1,
+        "tooltip-format": "backlight {percent}%",
+    },
+
+    "clock": {
+        "format": "{:%H\n%M\n\n\n\n%d\n%m\n%y}",
+        "interval": 1,
+        //"format": "\n{:%I\n%M\n%p\n\n \n%d\n%m\n%y}",
+        "tooltip": true,
+        "tooltip-format": "{calendar}",
+        "calendar": {
+            "mode": "year",
+            "mode-mon-col": 3,
+            "format": {
+                "today": "<span color='#0dbc79'>{}</span>",
+            }
+        }
+    },
+    "clock#time": {
+        "format": "{:%H\n%M\n%S}",
+        "interval": 1,
+        "tooltip": true,
+        "tooltip-format": "{calendar}",
+        "calendar": {
+            "mode": "month",
+        }
+    },
+    "clock#date": {
+        "format": "{:%d\n%m\n%y}",
+        "interval": 300,
+        "tooltip": true,
+        "tooltip-format": "{calendar}",
+        "tooltip-format": "{calendar}",
+        "calendar": {
+            "mode": "month",
+        }
+    },
+
+    "cpu": {
+        "format": "󰍛\n{usage}%",
+        "interval": 1,
+        "on-click-right": "gnome-system-monitor",
+    },
+
+    "memory": {
+        "interval": 10,
+        "format": "󰾆\n{percentage}%",
+        "format-alt": "󰾆\n{used:0.1f}G",
+        "format-alt-click": "click",
+        "tooltip": true,
+        "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+        "on-click-right": "kitty --title btop sh -c 'btop'",
+    },
+
+    "pulseaudio": {
+        "format": "{icon}",
+        "format-bluetooth": "󰂰",
+        "format-muted": "󰖁",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [
+                "", "", "󰕾", ""
+            ],
+            "tooltip-format": "{icon} {desc} | {volume}%",
+            "ignored-sinks": [
+                "Easy Effects Sink"
+            ],
+        },
+        "scroll-step": 5.0,
+        "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle",
+        "on-click-right": "pavucontrol -t 3",
+        "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --inc",
+        "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --dec",
+        "tooltip-format": "{icon} {desc} | {volume}%",
+        "smooth-scrolling-threshold": 1,
+    },
+
+    "pulseaudio#microphone_vertical": {
+        "format": "{format_source}",
+        "format-source": "󰍬",
+        "format-source-muted": "󰍭",
+        "on-click-right": "pavucontrol",
+        "on-click": "$HOME/.config/hypr/scripts/Volume.sh --toggle-mic",
+        "on-scroll-up": "$HOME/.config/hypr/scripts/Volume.sh --mic-inc",
+        "on-scroll-down": "$HOME/.config/hypr/scripts/Volume.sh --mic-dec",
+        "max-volume": 100,
+        "tooltip": true,
+        "tooltip-format": "{source_desc} | {source_volume}%",
+    },
+
+    "pulseaudio/slider": {
+        "min": 0,
+        "max": 100,
+        "orientation": "vertical"
+    },
+
+    "backlight/slider": {
+        "min": 5,
+        "max": 100,
+        "orientation": "vertical"
+    },
+
+    "custom/power_vertical": {
+        "format": "⏻",
+        "on-click": "",
+        "on-click-right": "",
+        "tooltip": true,
+        "tooltip-format": "Left Click: Nothing",
+    },
+    "custom/holdertext": {
+        "format": "ooo"
+    },
+    "custom/void": {
+        "format": " ",
+        "align": "center"
+    },
+    "custom/toplimit": {
+        "format": " ",
+    },
+    "custom/botlimit": {
+        "format": " ",
+    }
+}
+
