@@ -26,6 +26,19 @@
         "tooltip-format": "{timeTo} {power}w",
         "on-click-middle": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
         "on-click-right": "$HOME/.config/hypr/scripts/Wlogout.sh",
+    },
+    "battery#simple": {
+        "design-capacity": false,
+        "format": "{icon}",
+        "format-charging": "󰠠",
+        "format-icons": [
+            "", "󰲠", "󰲢", "󰲤", "󰲦", "󰲨", "󰲪", "󰲬", "󰲮", "󰲰", "󰿬"
+        ],
+        "format-time": "{H}h {M}min",
+        "tooltip": true,
+        "tooltip-format": "{timeTo} {power}w {capacity}%",
+        "on-click-middle": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
+        "on-click-right": "$HOME/.config/hypr/scripts/Wlogout.sh",
 
     },
     "custom/separator#line": {
@@ -44,16 +57,17 @@
             "*": 5
         },
         "format-icons": {
-            "1": "一",
-            "2": "二",
-            "3": "三",
-            "4": "四",
-            "5": "五",
-            "6": "六",
-            "7": "七",
-            "8": "八",
-            "9": "九",
-            "10": "十",
+            "D": "虚",
+            "2": "一",
+            "3": "二",
+            "4": "三",
+            "5": "四",
+            "6": "五",
+            "7": "六",
+            "8": "七",
+            "9": "八",
+            "10": "九",
+            "11": "十",
         }
     },
 
@@ -197,7 +211,7 @@
 
     "custom/power_vertical": {
         "format": "⏻",
-        "on-click": "",
+        "on-click": "~/.config/niri/scripts/power.sh",
         "on-click-right": "",
         "tooltip": true,
         "tooltip-format": "Left Click: Nothing",

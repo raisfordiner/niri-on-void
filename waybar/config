@@ -3,7 +3,7 @@
       "$HOME/.config/waybar/modules",
       ],
     "layer": "top",
-    "position": "left",
+    "position": "right",
     "margin-top": 0,
     "margin-bottom": 0,
     "margin-left": 0,
@@ -31,7 +31,7 @@
         "custom/toplimit",
         "pulseaudio/slider",
         "backlight/slider",
-        "battery",
+        "battery#simple",
         "custom/botlimit",
     ],
 }

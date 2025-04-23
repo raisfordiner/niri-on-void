@@ -1,9 +1,5 @@
-#!/usr/bin/sh
+if [ -z "$DBUS_SESSION_BUS_ADDRESS" ]; then
+  eval "$(dbus-launch --sh-syntax)"
+fi
 
-dbus-launch --sh-syntax waybar &
-swww-daemon
-swww img $HOME/Pictures/wall/wallpaper.png
 
-fcitx5 &
-
-cpupower frequency-set -u 3000000

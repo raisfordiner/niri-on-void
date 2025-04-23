@@ -117,10 +117,11 @@ layout {
 
     shadow {
         // on
-        softness 50
-        spread 10
-        offset x=0 y=5
-        // color "#0007"
+        softness 15
+        spread 2
+        // offset x=0 y=5
+        color "#477f60"
+        inactive-color "#aac1aa"
     }
 
     struts {
@@ -131,13 +132,12 @@ layout {
     }
 }
 
-// spawn-at-startup "swww-daemon"
-// spawn-at-startup "swww" "$HOME/Pictures/wall/wallpaper.png"
 // spawn-at-startup "dbus-launch" "--sh-syntax" "waybar"
-// // // My weird stuffs
-// spawn-at-startup "cpupower" "frequency-set" "-u" "3000000"
-// This is script to run processes on login (easier to manage as file)
-spawn-at-startup "~/.config/niri/scripts/startup.sh"
+spawn-at-startup "waybar"
+spawn-at-startup "swww-daemon"
+spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
+spawn-at-startup "fcitx5"
+spawn-at-startup "cpupower" "frequency-set" "-u" "3000000"
 
 // Client side decoration (line below will turn it off)
 prefer-no-csd
@@ -152,15 +152,23 @@ animations {
 
 // Apply to all windows
 window-rule {
-    // Yes, corner is good
     geometry-corner-radius 12
     clip-to-geometry true
     draw-border-with-background false
 }
 
+// Apply opacity to all apps
+window-rule {
+    exclude app-id="zen" 
+    exclude app-id="firefox"
+    exclude app-id="virt-manager"
+
+    opacity 0.95
+}
+
 window-rule {
     match is-active=false
-    opacity 0.8
+    opacity 0.85
 }
 
 // Make "Picture-in-Picture" float
@@ -170,6 +178,7 @@ window-rule {
     open-maximized false
     open-fullscreen false
     open-focused false
+    opacity 1.0
     geometry-corner-radius 0
     border {
         width 2
@@ -180,25 +189,73 @@ window-rule {
 window-rule {
     // Append browser as you go, check app-id with `niri msg windows`
     match app-id="zen"
+    match app-id="firefox"
+    match app-id="virt-manager"
+
+    exclude title="Virtual Machne Manager"
+
     open-maximized true
+}
+
+// Some tweak for vm
+window-rule {
+    match title="Virtual Machine Manager"
+    open-focused false
+    open-floating true
+    min-height 500
+    max-height 500
+    min-width 800
+    max-width 800
+}
+
+// Work-around for kitty slow startup
+spawn-at-startup "kitty" "-1" "--title=Kitty-Daemon"
+output "I don't know"{
+}
+workspace "D" {
+    open-on-output "I don't know"
+}
+window-rule {
+    match title="Kitty-Daemon"
+    open-on-workspace "D"
+    max-width 1
+    max-height 1
+    opacity 0.0
+    border {
+        off
+    }
+}
+spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
+
+layer-rule {
+    match namespace="waybar"
+
+    shadow {
+        on
+        softness 15
+        spread 15
+        color "#191724"
+    }
 }
 
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+Return { spawn "ghostty"; }
+    // Mod+Return { spawn "ghostty"; }
+    Mod+Return { spawn "kitty" "-1" "--title=Kitty-Client"; }
     Mod+D { spawn "fuzzel"; }
+    Mod+P { spawn "~/.config/niri/scripts/power.sh"; }
     Mod+Shift+B { spawn "~/.config/niri/scripts/toggle-bar.sh"; }
     // Super+Alt+L { spawn "swaylock"; }
     Mod+Shift+S { spawn "grimshot" "copy" "area"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
-    XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
-    XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "+5%"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn "pactl" "set-sink-volume" "@DEFAULT_SINK@" "-5%"; }
+    XF86AudioMute        allow-when-locked=true { spawn "pactl" "set-sink-mute" "@DEFAULT_SINK@" "toggle"; }
+    XF86AudioMicMute     allow-when-locked=true { spawn "pactl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+Q { close-window; }
 
@@ -280,26 +337,27 @@ binds {
     Mod+Ctrl+Shift+WheelScrollDown { move-column-right; }
     Mod+Ctrl+Shift+WheelScrollUp   { move-column-left; }
 
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
-    Mod+5 { focus-workspace 5; }
-    Mod+6 { focus-workspace 6; }
-    Mod+7 { focus-workspace 7; }
-    Mod+8 { focus-workspace 8; }
-    Mod+9 { focus-workspace 9; }
-    Mod+0 { focus-workspace 10; }
-    Mod+Ctrl+1 { move-column-to-workspace 1; }
-    Mod+Ctrl+2 { move-column-to-workspace 2; }
-    Mod+Ctrl+3 { move-column-to-workspace 3; }
-    Mod+Ctrl+4 { move-column-to-workspace 4; }
-    Mod+Ctrl+5 { move-column-to-workspace 5; }
-    Mod+Ctrl+6 { move-column-to-workspace 6; }
-    Mod+Ctrl+7 { move-column-to-workspace 7; }
-    Mod+Ctrl+8 { move-column-to-workspace 8; }
-    Mod+Ctrl+9 { move-column-to-workspace 9; }
-    Mod+Ctrl+0 { move-column-to-workspace 10; }
+    // Numbering is weird cuz i did a workaround
+    Mod+1 { focus-workspace 2; }
+    Mod+2 { focus-workspace 3; }
+    Mod+3 { focus-workspace 4; }
+    Mod+4 { focus-workspace 5; }
+    Mod+5 { focus-workspace 6; }
+    Mod+6 { focus-workspace 7; }
+    Mod+7 { focus-workspace 8; }
+    Mod+8 { focus-workspace 9; }
+    Mod+9 { focus-workspace 10; }
+    Mod+0 { focus-workspace 11; }
+    Mod+Ctrl+1 { move-column-to-workspace 2; }
+    Mod+Ctrl+2 { move-column-to-workspace 3; }
+    Mod+Ctrl+3 { move-column-to-workspace 4; }
+    Mod+Ctrl+4 { move-column-to-workspace 5; }
+    Mod+Ctrl+5 { move-column-to-workspace 6; }
+    Mod+Ctrl+6 { move-column-to-workspace 7; }
+    Mod+Ctrl+7 { move-column-to-workspace 8; }
+    Mod+Ctrl+8 { move-column-to-workspace 9; }
+    Mod+Ctrl+9 { move-column-to-workspace 10; }
+    Mod+Ctrl+0 { move-column-to-workspace 11; }
 
     // Alternatively, there are commands to move just a single window:
     // Mod+Ctrl+1 { move-window-to-workspace 1; }

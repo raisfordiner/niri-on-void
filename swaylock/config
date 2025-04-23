@@ -1,0 +1,12 @@
+screenshots
+clock
+indicator-idle-visible
+indicator-status 100
+indicator-thickness 7
+ring-color 477f60
+key-hl-color 477f60
+text-color 477f60
+line-color 00000000
+inside-color 191724
+separator-color 00000000
+fade-in 0.1
