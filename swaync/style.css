@@ -1,0 +1,192 @@
+.widget-buttons-grid .text-button,
+.widget-mpris-player,
+.control-center,
+.control-center-clear-all,
+.notification {
+    border: 5px solid @base;
+    border-radius: 10px;
+    box-shadow: 5px 5px @base;
+}
+
+.control-center {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: @gold;
+}
+
+.widget-dnd,
+.widget-title {
+    color: @base;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.widget-dnd>switch {
+    border-radius: 5px;
+    background: #665c54;
+    border: 3px solid @base;
+}
+
+.widget-dnd>switch:checked {
+    background: @rose;
+}
+
+.widget-dnd>switch slider {
+    background: @base;
+    border-radius: 3px
+}
+
+.widget-mpris-player {
+    background-color: @void;
+}
+
+.widget-mpris-album-art {
+    box-shadow: none;
+}
+
+.widget-mpris>.horizontal>.image-button {
+    margin-top: 60px;
+    margin-bottom: 60px;
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border: 5px solid @base;
+    border-left: none;
+    background-color: @faded_blue;
+    box-shadow: 0px 5px @base;
+}
+
+.widget-mpris>.horizontal>.image-button:nth-child(3) {
+    border-radius: 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border: 5px solid @base;
+    border-right: none;
+}
+
+.widget-buttons-grid {
+    background: none;
+    padding: 0px 10px;
+    margin-top: 1px;
+}
+
+/* move buttons grid 20px up if there's the mpris player above it */
+/* .widget-mpris+.widget-buttons-grid { */
+/*   margin-top: -4px; */
+/* } */
+
+.widget-buttons-grid .text-button {
+    background-color: @rose;
+    font-size: 20px;
+}
+
+.widget-buttons-grid .text-button:hover {
+    background-color: @rose;
+}
+
+.control-center-clear-all {
+    background-color: @iris;
+}
+
+.control-center-clear-all:hover {
+    background-color: @iris;
+}
+
+/* The "No Notifications" text and image */
+.control-center-list-placeholder {
+    color: @base;
+}
+
+/* Notification popup styling follows. */
+
+.notification {
+    border: 5px solid @base;
+    box-shadow: 5px 5px @base;
+    background-color: @gold;
+}
+
+.control-center .notification {
+    background-color: @gold;
+}
+
+.body,
+.summary,
+.notification-action {
+    color: @base;
+}
+
+.control-center .body,
+.control-center .summary,
+.control-center .notification-action {
+    color: white;
+}
+
+.notification-action {
+    border-color: @base;
+}
+
+/* .control-center .notification-action { */
+/*   border-color: white; */
+/* } */
+
+.notification-action:hover {
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    background-color: @gold;
+}
+
+.notification-default-action:hover {
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
+    background-color: @gold;
+}
+
+
+.control-center .notification-action:hover {
+    background-color: @gold;
+}
+
+.control-center .notification-default-action:hover {
+    background-color: @gold;
+}
+
+.close-button {
+    border: 4px solid @base;
+    border-radius: 10px;
+    margin: 6px;
+    padding: 0px;
+    background-color: @rose;
+    color: @base;
+}
+
+.close-button:hover {
+    background-color: @rose;
+}
+
+.time {
+    margin-right: 40px;
+}
+
+.notification-group-header,
+.notification-group-icon {
+    color: @base;
+}
+
+.notification-group-close-all-button,
+.notification-group-collapse-button {
+    border: 4px solid @base;
+    border-radius: 10px;
+    padding: 2px;
+    margin: 3px;
+    box-shadow: 3px 3px @base;
+    color: @base;
+}
+
+.notification-group-close-all-button {
+    background-color: @rose;
+}
+
+.notification-group-collapse-button {
+    background-color: @soft;
+}
