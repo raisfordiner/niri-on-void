@@ -133,13 +133,14 @@ layout {
 }
 
 // spawn-at-startup "dbus-launch" "--sh-syntax" "waybar"
+spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
+spawn-at-startup "xwayland-satellite" ":11"
+spawn-at-startup "swaync"
 spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
-spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
 spawn-at-startup "fcitx5"
-spawn-at-startup "cpupower" "frequency-set" "-u" "3000000"
 
-// Client side decoration (line below will turn it off)
+// The line below disables client side decoration
 prefer-no-csd
 
 // Use grimshot instead, niri stock screenshot suck!
@@ -162,6 +163,8 @@ window-rule {
     exclude app-id="zen" 
     exclude app-id="firefox"
     exclude app-id="virt-manager"
+    exclude app-id="discord"
+    exclude app-id="foot"
 
     opacity 0.95
 }
