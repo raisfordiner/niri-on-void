@@ -2,11 +2,12 @@
 
 fuzzelConfDir="$HOME/.config/fuzzel/power-options.ini"
 
-#There is no sleep/suspend cause it sucks
 actions=(
     " "
     " 󰐥"
     " "
+    " 󰤄"
+    " "
     " 󰍃"
 )
 
@@ -23,6 +24,12 @@ case "$chosen" in
         loginctl reboot
         ;;
     3)
+        loginctl suspend
+        ;;
+    4)
+        loginctl hybrid-sleep
+        ;;
+    5)
         loginctl kill-session $XDG_SESSION_ID
         ;;
 esac

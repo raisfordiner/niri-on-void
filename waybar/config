@@ -14,24 +14,20 @@
     //"gtk-layer-shell": true,
   
     "modules-left": [
-        "custom/toplimit",
         "custom/power_vertical",
         "niri/workspaces#kanji",
-        "custom/botlimit",
         "custom/holdertext",
     ],
 
     "modules-center": [
         "clock#time",
         "custom/void",
-        "clock#date",
+        "clock#date"
     ], 
 
     "modules-right": [
-        "custom/toplimit",
         "pulseaudio/slider",
         "backlight/slider",
-        "battery#simple",
-        "custom/botlimit",
+        "battery#simple"
     ],
 }

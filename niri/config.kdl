@@ -51,6 +51,12 @@ input {
     disable-power-key-handling
 }
 
+gestures {
+    hot-corners {
+        off
+    }
+}
+
 /-output "eDP-1" {
     // off
 
@@ -110,6 +116,7 @@ layout {
     }
 
     border {
+        off
         width 8
         active-color "#477F60"
         inactive-color "#AAC1AA"
@@ -117,11 +124,11 @@ layout {
 
     shadow {
         // on
-        softness 15
-        spread 2
-        // offset x=0 y=5
-        color "#477f60"
-        inactive-color "#aac1aa"
+        softness 10
+        spread 10
+        offset x=0 y=0
+        color "#ebdbb2"
+        inactive-color "#aac1aa" //This is turned off
     }
 
     struts {
@@ -130,11 +137,21 @@ layout {
         top -10
         bottom -10
     }
+
+    background-color "transparent"
+}
+
+overview {
+    workspace-shadow {
+        off
+    }
 }
 
 // spawn-at-startup "dbus-launch" "--sh-syntax" "waybar"
 spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
+spawn-at-startup "/usr/libexec/xdg-desktop-portal-wlr"
 spawn-at-startup "xwayland-satellite" ":11"
+spawn-at-startup "pipewire"
 spawn-at-startup "swaync"
 spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
@@ -144,7 +161,7 @@ spawn-at-startup "fcitx5"
 prefer-no-csd
 
 // Use grimshot instead, niri stock screenshot suck!
-screenshot-path null
+screenshot-path "~/Pictures/Screenshots/Niri-%y-%m-%d_%H-%M-%S.png"
 
 animations {
     //Take it slowwww....
@@ -158,8 +175,15 @@ window-rule {
     draw-border-with-background false
 }
 
-// Apply opacity to all apps
 window-rule {
+    match is-active=true
+    shadow {
+        on
+    }
+}
+
+// Apply opacity to all apps
+/-window-rule {
     exclude app-id="zen" 
     exclude app-id="firefox"
     exclude app-id="virt-manager"
@@ -171,7 +195,7 @@ window-rule {
 
 window-rule {
     match is-active=false
-    opacity 0.85
+    opacity 0.95
 }
 
 // Make "Picture-in-Picture" float
@@ -188,12 +212,12 @@ window-rule {
     }
 }
 
-// Make browsers fullscreen cuz they're supposed to be
+// Make deez apps fullscreen cuz they're supposed to be
 window-rule {
-    // Append browser as you go, check app-id with `niri msg windows`
     match app-id="zen"
     match app-id="firefox"
     match app-id="virt-manager"
+    match app-id="discord"
 
     exclude title="Virtual Machne Manager"
 
@@ -213,10 +237,7 @@ window-rule {
 
 // Work-around for kitty slow startup
 spawn-at-startup "kitty" "-1" "--title=Kitty-Daemon"
-output "I don't know"{
-}
 workspace "D" {
-    open-on-output "I don't know"
 }
 window-rule {
     match title="Kitty-Daemon"
@@ -224,6 +245,9 @@ window-rule {
     max-width 1
     max-height 1
     opacity 0.0
+    shadow {
+        off
+    }
     border {
         off
     }
@@ -231,13 +255,18 @@ window-rule {
 spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
 
 layer-rule {
+    match namespace="swww-daemon"
+    place-within-backdrop true
+}
+
+layer-rule {
     match namespace="waybar"
 
     shadow {
         on
-        softness 15
-        spread 15
-        color "#191724"
+        softness 10
+        spread 10
+        color "#282828"
     }
 }
 
@@ -252,6 +281,7 @@ binds {
     Mod+Shift+B { spawn "~/.config/niri/scripts/toggle-bar.sh"; }
     // Super+Alt+L { spawn "swaylock"; }
     Mod+Shift+S { spawn "grimshot" "copy" "area"; }
+    Mod+Shift+N { spawn "swaync-client" "-t"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
@@ -261,6 +291,9 @@ binds {
     XF86AudioMicMute     allow-when-locked=true { spawn "pactl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
 
     Mod+Q { close-window; }
+
+    Mod+A { toggle-overview; }
+    Mod+Tab { toggle-overview; }
 
     Mod+Left  { focus-column-left; }
     Mod+Down  { focus-window-down; }
@@ -403,7 +436,7 @@ binds {
 
     Mod+W { toggle-column-tabbed-display; }
 
-    Print { screenshot; }
+    Mod+S { spawn "~/.config/niri/scripts/niri-screen.sh"; }
     Ctrl+Print { screenshot-screen; }
     Alt+Print { screenshot-window; }
 

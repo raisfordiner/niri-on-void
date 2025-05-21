@@ -1,102 +1,119 @@
-@import "../../.config/waybar/colors.css";
+@define-color base #282828;
+@define-color surface #fbf1c7;
+@define-color overlay #f9f5d7;
+@define-color muted #665c54;
+@define-color subtle #3c3836;
+@define-color text #ebdbb2;
+@define-color red #cc241d;
+@define-color yellow #d79921;
+@define-color orange #d64d0e;
+@define-color blue_b #076678;
+@define-color blue #458588;
+@define-color purple_b #8f3f71;
+@define-color green_b #427b58;
+@define-color green #689d6a;
+@define-color highlight-low #7c6f64;
+@define-color highlight-med #665c54;
+@define-color highlight-high #504945;
 
 * {
-    font-family: "JetBrainsMonoNL Nerd Font";
-    font-weight: bold;
-    min-height: 0;
-    /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
-    font-size: 99%;
-    font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  font-family: "JetBrainsMonoNL Nerd Font";
+  font-weight: bold;
+  min-height: 0;
+  /* set font-size to 100% if font scaling is set to 1.00 using nwg-look */
+  font-size: 99%;
+  font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+  border-radius: 8px;
 }
 
 window#waybar {
-    background: @base;
-    /* background: transparent; */
-    border-radius: 0px;
-    /* border: 8px solid @void; */
-    padding-top: 4px;
-    padding-bottom: 4px;
+  background: @base;
+  /* background: transparent; */
+  border-radius: 0px;
+  /* border: 8px solid @green_b; */
+  padding-top: 4px;
+  padding-bottom: 4px;
 }
 
 window#waybar.hidden {
-    opacity: 0.5;
+  opacity: 0.5;
 }
 
 tooltip {
-    color: @void;
-    /* background: rgba(0, 0, 0, 0.8); */
-    background: @base;
-    border-radius: 8px;
-    border: 4px solid @void;
+  color: @green_b;
+  /* background: rgba(0, 0, 0, 0.8); */
+  background: @base;
+  border-radius: 8px;
+  border: 4px solid @green_b;
 }
 
 tooltip label {
-    color: @void;
-    padding-right: 2px;
-    padding-left: 2px;
+  color: @green_b;
+  padding-right: 2px;
+  padding-left: 2px;
 }
 
 /*-----module groups----*/
 .modules-left,
 .modules-center,
 .modules-right {
-    padding-top: 15px;
-    padding-bottom: 15px;
-    /* padding-right: 8px; */
-    /* padding-left: 4px; */
-    border-radius: 0px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  /* padding-right: 8px; */
+  /* padding-left: 4px; */
+  border-radius: 0px;
 }
 
 #workspaces {
-    border: 2px solid @soft;
+  border: 3px solid @green;
 }
 
 #taskbar button,
 #workspaces button {
-    color: @soft;
-    font-size : 16px;
-    font-weight: 900;
-    box-shadow: none;
-    text-shadow: none;
-    padding: 8px;
-    /* border-radius: 0px 8px 8px 0px; */
-    border-radius: 0px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  color: @green;
+  font-size: 16px;
+  font-weight: 900;
+  box-shadow: none;
+  text-shadow: none;
+  padding: 8px;
+  /* border-radius: 0px 8px 8px 0px; */
+  border-radius: 0px;
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.5s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #taskbar button.active,
 #workspaces button.active {
-    background: @soft;
-    /* border-radius: 0px 8px 8px 0px; */
-    border-radius: 0px;
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  background: @green;
+  /* border-radius: 0px 8px 8px 0px; */
+  border-radius: 0px;
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #workspaces button.focused {
-    color: @base;
+  color: @base;
 }
 
 #workspaces button.urgent {
-    color: @base;
-    /* border-radius: 0px 8px 8px 0px; */
+  color: @base;
+  /* border-radius: 0px 8px 8px 0px; */
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
-    /*color: @color9;*/
-    border-color: @soft;
-    /* border-radius: 0px 8px 8px 0px; */
-    border-radius: 0px;
-    /*padding-left: 2px;*/
-    /*  padding-right: 2px;*/
-    animation: gradient_f 20s ease-in infinite;
-    transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
+  /*color: @color9;*/
+  border-color: @green;
+  /* border-radius: 0px 8px 8px 0px; */
+  border-radius: 0px;
+  /*padding-left: 2px;*/
+  /*  padding-right: 2px;*/
+  animation: gradient_f 20s ease-in infinite;
+  transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
 }
 
 #custom-holdertext,
-#custom-void,
+#custom-green_b,
 #backlight,
 #backlight-slider,
 #battery,
@@ -112,130 +129,132 @@ tooltip label {
 #taskbar,
 #custom-power_vertical,
 #tray {
-    background-color: @void;
-    color: @base;
-    /* border-radius: 0px 8px 8px 0px; */
-    padding-top: 8px;
-    padding-bottom: 8px;
-    padding-right: 6px;
-    padding-left: 6px;
+  background-color: @green_b;
+  color: @base;
+  /* border-radius: 0px 8px 8px 0px; */
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 6px;
+  padding-left: 6px;
 }
 
 #clock {
-    background-color: transparent;
-    color: @void;
-    font-size: 18px;
+  background-color: transparent;
+  color: @green_b;
+  font-size: 18px;
 }
 
 #custom-power_vertical {
-    background-color: @love;
-    font-size: 26px;
-    padding: 0px;
-    padding-left: 3px;
+  background-color: @red;
+  font-size: 26px;
+  padding: 0px;
+  padding-left: 3px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 #backlight {
-    background-color: @love;
-
+  background-color: @red;
 }
 
 #pulseaudio {
-    background-color: @gold;
+  background-color: @yellow;
 }
 
 #battery {
-    background-color: @iris;
-    font-size: 30px;
-    padding: 0px;
-    padding-right: 7px;
+  color: @base;
+  background-color: @blue;
+  font-size: 30px;
+  padding: 0px;
+  padding-right: 7px;
 }
 
 #cpu {
-    background-color: @soft;
+  background-color: @green;
 }
 
 #memory {
-    background-color: @rose;
+  background-color: @orange;
 }
 
 #temperature {
-    background-color: @iris;
+  background-color: @purple_b;
 }
 
 #pulseaudio-slider {
-    background-color: @gold;
+  background-color: @yellow;
 }
 
 #pulseaudio-slider slider {
-    min-height: 0px;
-    min-width: 0px;
-    border: none;
-    box-shadow: none;
-    background-color: transparent;
+  min-height: 0px;
+  min-width: 0px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 #pulseaudio-slider trough {
-    min-height: 80px;
-    min-width: 5px;
-    border-radius: 5px;
-    border: 4px solid @base;
-    background-color: #ffffff;
+  min-height: 80px;
+  min-width: 5px;
+  border-radius: 5px;
+  border: 4px solid @base;
+  background-color: @yellow;
 }
 
 #pulseaudio-slider highlight {
-    min-width: 0px;
-    border-radius: 3px;
-    border: 5px solid @base;
-    /* background-color: green; */
+  min-width: 0px;
+  border-radius: 3px;
+  border: 5px solid @base;
+  /* background-color: green; */
 }
 
 #backlight-slider {
-    background-color: @love;
+  background-color: @red;
 }
 
 #backlight-slider slider {
-    min-height: 0px;
-    min-width: 0px;
-    border: none;
-    box-shadow: none;
-    background-color: transparent;
+  min-height: 0px;
+  min-width: 0px;
+  border: none;
+  box-shadow: none;
+  background-color: transparent;
 }
 
 #backlight-slider trough {
-    min-height: 80px;
-    min-width: 5px;
-    border-radius: 5px;
-    border: 4px solid @base;
-    background-color: #ffffff;
+  min-height: 80px;
+  min-width: 5px;
+  border-radius: 5px;
+  border: 4px solid @base;
+  background-color: @red;
 }
 
 #backlight-slider highlight {
-    min-width: 0px;
-    border-radius: 3px;
-    border: 5px solid @base;
+  min-width: 0px;
+  border-radius: 3px;
+  border: 5px solid @base;
 }
 
 #custom-holdertext {
-    color: transparent;
-    background-color: transparent;
+  color: transparent;
+  background-color: transparent;
 }
 
 #custom-void {
-    padding: 0px;
-    padding-left: 6px;
-    background-color: transparent;
-    font-size: 24px;
-    color: @void;
+  padding: 0px;
+  padding-left: 6px;
+  background-color: transparent;
+  font-size: 24px;
+  color: @green_b;
 }
 
 #custom-toplimit {
-    padding: 5px;
-    border-radius: 20px 0px 0px 0px;
-    background-color: @void;
+  padding: 5px;
+  border-radius: 20px 0px 0px 0px;
+  background-color: @green_b;
 }
 
 #custom-botlimit {
-    padding: 5px;
-    border-radius: 0px 0px 0px 20px;
-    background-color: @void;
+  padding: 5px;
+  border-radius: 0px 0px 0px 20px;
+  background-color: @green_b;
 }
