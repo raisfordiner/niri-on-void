@@ -1,89 +1,48 @@
 {
+    "river/tags": {
+        "num-tags": 6,
+        "set-tags": [ 1, 2, 4, 8, 16, 32, ],
+        "tag-labels":[
+            "01",
+            "02",
+            "04",
+            "08",
+            "16",
+            "32",
+        ]
+    },
+
     "battery": {
-        //"interval": 5,
+        "interval": 5,
         "align": 0,
         "rotate": 0,
-        //"bat": "BAT1",
-        //"adapter": "ACAD",
         "full-at": 100,
         "design-capacity": false,
         "states": {
-            "good": 95,
-            "warning": 30,
-            "critical": 15
-        },
-        "format": " {icon}\n{capacity}%",
-        "format-charging": "  \n{capacity}%",
-        "format-plugged": "  󱘖\n{capacity}%",
+          "good": 95,
+          "warning": 30,
+          "critical": 10
+         },
+        "format": "{icon}{capacity}%",
+        "format-charging": " {capacity}%",
+        "format-plugged": "󱘖  {capacity}%",
         "format-alt-click": "click",
-        "format-full": " {icon}\nFull",
-        "format-alt": "{icon} {time}",
-        "format-icons": [
-            "󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"
-        ],
-        "format-time": "{H}h {M}min",
+        "format-full": "{icon} Full",
+        "format-alt": "{icon}{time}",
+        "format-icons": ["", "", "", "", ""],
+        "format-time": "{H}h.{M}m",
         "tooltip": true,
         "tooltip-format": "{timeTo} {power}w",
     },
 
-    "battery#simple": {
-        "design-capacity": false,
-        "format": "{icon}",
-        "format-charging": "󰠠",
-        "format-full": "󰓏",
-        "format-icons": [
-            "", "󰲠", "󰲢", "󰲤", "󰲦", "󰲨", "󰲪", "󰲬", "󰲮", "󰲰", "󰿬"
-        ],
-        "format-time": "{H}h {M}min",
-        "tooltip": true,
-        "tooltip-format": "{timeTo} {power}w {capacity}%",
-
+    "tray": {
+        "spacing": 8,
     },
-    "custom/separator#line": {
-        "format": "|",
+
+    "custom/separator": {
+        "format": "┃",
         "interval": "once",
         "tooltip": false
-    },
-
-    // Kanji / Japanese style
-    "niri/workspaces#kanji": {
-        "disable-scroll": true,
-        "show-special": false,
-        "all-outputs": true,
-        "format": "{icon}",
-        "persistent-workspaces": {
-            "*": 5
-        },
-        "format-icons": {
-            "D": "虚",
-            "2": "一",
-            "3": "二",
-            "4": "三",
-            "5": "四",
-            "6": "五",
-            "7": "六",
-            "8": "七",
-            "9": "八",
-            "10": "九",
-            "11": "十",
-        }
-    },
-
-    "temperature": {
-        "interval": 10,
-        "tooltip": true,
-        "hwmon-path": [
-            "/sys/class/hwmon/hwmon1/temp1_input",
-            "/sys/class/thermal/thermal_zone0/temp"
-        ],
-        //"thermal-zone": 0,
-        "critical-threshold": 80,
-        "format-critical": "{icon}\n{temperatureC}°C",
-        "format": "{temperatureC}°",
-        "format-icons": [
-            "󰈸"
-        ],
-        "on-click-right": "kitty --title nvtop sh -c 'nvtop'"
     },
 
     "backlight": {
@@ -117,7 +76,7 @@
         }
     },
     "clock#time": {
-        "format": "{:%H\n%M\n%S}",
+        "format": "{:%H:%M:%S}",
         "interval": 1,
         "tooltip": true,
         "tooltip-format": "{calendar}",
@@ -125,6 +84,7 @@
             "mode": "month",
         }
     },
+    
     "clock#date": {
         "format": "{:%d\n%m\n%y}",
         "interval": 300,
@@ -136,90 +96,88 @@
         }
     },
 
-    "cpu": {
-        "format": "󰍛\n{usage}%",
-        "interval": 1,
-        "on-click-right": "gnome-system-monitor",
-    },
-
-    "memory": {
-        "interval": 10,
-        "format": "󰾆\n{percentage}%",
-        "format-alt": "󰾆\n{used:0.1f}G",
-        "format-alt-click": "click",
-        "tooltip": true,
-        "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
-        "on-click-right": "kitty --title btop sh -c 'btop'",
-    },
-
     "pulseaudio": {
-        "format": "{icon}",
-        "format-bluetooth": "󰂰",
-        "format-muted": "󰖁",
+        "format": "{icon}{volume}%",
+        "format-muted": "󰖁 ",
         "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [
-                "", "", "󰕾", ""
-            ],
-            "tooltip-format": "{icon} {desc} | {volume}%",
-            "ignored-sinks": [
-                "Easy Effects Sink"
-            ],
+            "speaker": " ",
+            "headphone": " ",
+            "hands-free": " ",
+            "headset": " ",
+            "phone": " ",
+            "portable": " ",
+            "car": " ",
+        "ignored-sinks": ["Easy Effects Sink"],
         },
         "scroll-step": 5.0,
+        "on-click": "~/.config/waybar/scripts/volume.sh mute",
         "on-click-right": "pavucontrol -t 3",
+        "on-scroll-up": "~/.config/waybar/scripts/volume.sh inc 5",
+        "on-scroll-down": "~/.config/waybar/scripts/volume.sh dec 5",
         "tooltip-format": "{icon} {desc} | {volume}%",
+        },
+    "smooth-scrolling-threshold": 1,
+
+    "pulseaudio#microphone": {
+        "format": "{format_source}",
+        "format-source": " {volume}% ",
+        "format-source-muted": " ",
+        "on-click": "~/.config/waybar/scripts/volume.sh mic-mute",
+        "on-click-right": "pavucontrol -t 4",
+        "on-scroll-up": "~/.config/waybar/scripts/volume.sh mic-inc 5",
+        "on-scroll-down": "~/.config/waybar/scripts/volume.sh mic-dec 5",
+        "tooltip-format": "{source_desc} | {source_volume}%",
+        "smooth-scrolling-threshold": 1,
+        "scroll-step": 5,
+    },
+
+    "custom/playerctl": {
+        "format": " <span>{}</span>",
+        "return-type": "json",
+        "max-length": 20,
+        "exec": "playerctl -a metadata --format '{\"text\": \"{{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+        "on-click": "playerctl play-pause",
+        "scroll-step": 5.0,
         "smooth-scrolling-threshold": 1,
     },
 
-    "pulseaudio#microphone_vertical": {
-        "format": "{format_source}",
-        "format-source": "󰍬",
-        "format-source-muted": "󰍭",
-        "on-click-right": "pavucontrol",
-        "max-volume": 100,
-        "tooltip": true,
-        "tooltip-format": "{source_desc} | {source_volume}%",
+    "custom/colorpicker": {
+        "format": "",
+        "on-click": "~/.local/bin/wl-color-picker.sh",
     },
 
-    "pulseaudio/slider": {
-        "min": 0,
-        "max": 100,
-        "orientation": "vertical"
+    "custom/screenshot": {
+        "format": "󰄀 ",
+        "on-click": "grimshot copy area",
+        "on-click-right": "grimshot copy output",
+        "on-click-middle": "grimshot copy screen",
+        "tooltip-format": "left: area\nright:output\nmiddle:screen",
     },
 
-    "backlight/slider": {
-        "min": 5,
-        "max": 100,
-        "orientation": "vertical"
+    "backlight": {
+        "interval": 2,
+        "align": 0,
+        "rotate": 0,
+        "format": "{icon}{percent}%",
+        "format-icons": ["󰃞 ", "󰃟 ", "󰃠 "],
+        "tooltip-format": "backlight {percent}%",
+        "icon-size": 10,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "smooth-scrolling-threshold": 1,
     },
 
-    "custom/power_vertical": {
-        "align": "center",
-        "format": "⏻",
-        "on-click": "~/.config/niri/scripts/power.sh",
-        "on-click-right": "",
-        "tooltip": true,
-        "tooltip-format": "Left Click: Nothing",
+    "network#speed": {
+        "interval": 1,
+        "format": "{ifname}",
+        "format-wifi": " {bandwidthUpBytes}  {bandwidthDownBytes}",
+        "format-ethernet": " {bandwidthUpBytes}  {bandwidthDownBytes}",
+        "tooltip-format": "{ipaddr}",
+        "format-linked": "󰈁 {ifname} (No IP)",
+        "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname} 󰌘",
+        "tooltip-format-disconnected": "󰌙 Disconnected",
+        "max-length": 50,
     },
-    "custom/holdertext": {
-        "format": "ooo"
-    },
-    "custom/void": {
-        "format": " ",
-        "tooltip": false,
-        "on-click": "swaync-client -t",
-    },
-    "custom/toplimit": {
-        "format": " ",
-    },
-    "custom/botlimit": {
-        "format": " ",
-    }
 }
 

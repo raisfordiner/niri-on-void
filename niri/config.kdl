@@ -57,14 +57,14 @@ gestures {
     }
 }
 
-/-output "eDP-1" {
+output "eDP-1" {
     // off
 
     // Run `niri msg outputs` for info
     // format "{width}x{height}@{hz}"; without @{hz} niri pick whatever it prefers
     mode "1920x1080"
 
-    scale 1
+    scale 1.22
 
     // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
     transform "normal"
@@ -84,16 +84,18 @@ gestures {
 // Make sure your cursor appear in /usr/share/icons
 // Install xcursor package from os repo
 cursor {
-    xcursor-theme "BreezeX-RosePine"
-    xcursor-size 24
+    xcursor-theme "Breeze_Snow"
+    xcursor-size 18
     hide-after-inactive-ms 2000
 }
 
 layout {
-    gaps 24
+    gaps 12
 
     center-focused-column "never"
     always-center-single-column
+
+    empty-workspace-above-first
 
     // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
@@ -116,10 +118,12 @@ layout {
     }
 
     border {
-        off
-        width 8
-        active-color "#477F60"
-        inactive-color "#AAC1AA"
+        // off
+        width 4
+        // active-color "#477F60"
+        // inactive-color "#AAC1AA"
+        active-gradient from="#1f2328" to="#1f2328"
+        inactive-gradient from="#1f2328" to="#8c959f"
     }
 
     shadow {
@@ -132,10 +136,10 @@ layout {
     }
 
     struts {
-        left -10
+        // left -10
         // right 64
-        top -10
-        bottom -10
+        // top -10
+        // bottom -10
     }
 
     background-color "transparent"
@@ -148,38 +152,24 @@ overview {
 }
 
 // spawn-at-startup "dbus-launch" "--sh-syntax" "waybar"
-spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
-spawn-at-startup "/usr/libexec/xdg-desktop-portal-wlr"
+// spawn-at-startup "/usr/libexec/polkit-gnome-authentication-agent-1"
+// spawn-at-startup "/usr/libexec/xdg-desktop-portal-wlr"
 spawn-at-startup "xwayland-satellite" ":11"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaync"
-spawn-at-startup "waybar"
+// spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "fcitx5"
 
 // The line below disables client side decoration
 prefer-no-csd
 
-// Use grimshot instead, niri stock screenshot suck!
+// Use grimshot instead, niri default screenshot suck!
 screenshot-path "~/Pictures/Screenshots/Niri-%y-%m-%d_%H-%M-%S.png"
 
 animations {
     //Take it slowwww....
-    slowdown 1.5
-}
-
-// Apply to all windows
-window-rule {
-    geometry-corner-radius 12
-    clip-to-geometry true
-    draw-border-with-background false
-}
-
-window-rule {
-    match is-active=true
-    shadow {
-        on
-    }
+    // slowdown 1.5
 }
 
 // Apply opacity to all apps
@@ -193,10 +183,10 @@ window-rule {
     opacity 0.95
 }
 
-window-rule {
-    match is-active=false
-    opacity 0.95
-}
+// window-rule {
+//     match is-active=false
+//     opacity 0.95
+// }
 
 // Make "Picture-in-Picture" float
 window-rule {
@@ -215,7 +205,8 @@ window-rule {
 // Make deez apps fullscreen cuz they're supposed to be
 window-rule {
     match app-id="zen"
-    match app-id="firefox"
+    match app-id="Firefox"
+    match app-id="brave-browser"
     match app-id="virt-manager"
     match app-id="discord"
 
@@ -235,47 +226,36 @@ window-rule {
     max-width 800
 }
 
-// Work-around for kitty slow startup
-spawn-at-startup "kitty" "-1" "--title=Kitty-Daemon"
-workspace "D" {
-}
-window-rule {
-    match title="Kitty-Daemon"
-    open-on-workspace "D"
-    max-width 1
-    max-height 1
-    opacity 0.0
-    shadow {
-        off
-    }
-    border {
-        off
-    }
-}
-spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
+// // Work-around for kitty slow startup
+// spawn-at-startup "kitty" "-1" "--title=Kitty-Daemon"
+// workspace "D" {
+// }
+// window-rule {
+//     match title="Kitty-Daemon"
+//     open-on-workspace "D"
+//     max-width 1
+//     max-height 1
+//     opacity 0.0
+//     shadow {
+//         off
+//     }
+//     border {
+//         off
+//     }
+// }
+// spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
 
 layer-rule {
     match namespace="swww-daemon"
     place-within-backdrop true
 }
 
-layer-rule {
-    match namespace="waybar"
-
-    shadow {
-        on
-        softness 10
-        spread 10
-        color "#282828"
-    }
-}
-
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    // Mod+Return { spawn "ghostty"; }
-    Mod+Return { spawn "kitty" "-1" "--title=Kitty-Client"; }
+    Mod+Return { spawn "foot"; }
+    // Mod+Return { spawn "kitty" "-1" "--title=Kitty-Client"; }
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "~/.config/niri/scripts/power.sh"; }
     Mod+Shift+B { spawn "~/.config/niri/scripts/toggle-bar.sh"; }

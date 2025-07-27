@@ -3,31 +3,37 @@
       "$HOME/.config/waybar/modules",
       ],
     "layer": "top",
-    "position": "right",
-    "margin-top": 0,
+    "position": "top",
+    "margin-top": 12,
     "margin-bottom": 0,
-    "margin-left": 0,
-    //"margin-right": 3,
+    "margin-left": 12,
+    "margin-right": 12,
     "spacing": 10,
     "fixed-center": true,
     "ipc": true,
     //"gtk-layer-shell": true,
   
     "modules-left": [
-        "custom/power_vertical",
-        "niri/workspaces#kanji",
-        "custom/holdertext",
+        "river/tags",
+        "custom/separator",
+        "river/mode",
     ],
 
     "modules-center": [
         "clock#time",
-        "custom/void",
-        "clock#date"
     ], 
 
     "modules-right": [
-        "pulseaudio/slider",
-        "backlight/slider",
-        "battery#simple"
+        "tray",
+        "custom/separator",
+        //"custom/playerctl",
+        "custom/screenshot",
+        "custom/colorpicker",
+        "custom/separator",
+        "pulseaudio",
+        "pulseaudio#microphone",
+        "backlight",
+        "custom/separator",
+        "battery",
     ],
 }
