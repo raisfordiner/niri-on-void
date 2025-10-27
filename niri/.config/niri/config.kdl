@@ -57,21 +57,13 @@ gestures {
     }
 }
 
-/-output "eDP-1" {
+output "eDP-1" {
     // off
-
     // Run `niri msg outputs` for info
-    // format "{width}x{height}@{hz}"; without @{hz} niri pick whatever it prefers
     mode "1920x1080"
+    scale 1.25
+    transform "normal" // normal, 90, 180, 270
 
-    scale 1
-
-    // normal, 90, 180, 270, flipped, flipped-90, flipped-180 and flipped-270.
-    transform "normal"
-
-    // Position of the output in the global coordinate space.
-    // This affects directional monitor actions like "focus-monitor-left", and cursor movement.
-    // The cursor can only move between directly adjacent outputs.
     // Output scale and rotation has to be taken into account for positioning:
     // outputs are sized in logical, or scaled, pixels.
     // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
@@ -90,18 +82,17 @@ cursor {
 }
 
 layout {
-    gaps 24
-
+    gaps 12
     center-focused-column "never"
-    always-center-single-column
+    // always-center-single-column
+    empty-workspace-above-first
 
-    // You can customize the widths that "switch-preset-column-width" (Mod+R) toggles between.
     preset-column-widths {
-        proportion 0.3
-        proportion 0.5
-        proportion 0.7
+        proportion 0.33333
+        proportion 0.66666
+        proportion 1.0
     }
-    default-column-width { proportion 0.5; }
+    default-column-width { proportion 0.33333; }
     preset-window-heights {
         proportion 0.33333
         proportion 0.5
@@ -110,16 +101,16 @@ layout {
     focus-ring {
         // use border instead, use this when yiu have mutiple monitor
         off
-        width 8
-        active-color "#7fc8ff"
-        inactive-color "#505050"
+        width 4
+        active-color "#000000"
+        inactive-color "#ffffff"
     }
 
     border {
-        off
-        width 8
-        active-color "#477F60"
-        inactive-color "#AAC1AA"
+        // off
+        width 4
+        active-color "#000000"
+        inactive-color "#505050"
     }
 
     shadow {
@@ -132,10 +123,18 @@ layout {
     }
 
     struts {
-        left -10
-        // right 64
-        top -10
-        bottom -10
+        left 2
+        right 2
+        top 2
+        bottom 2
+    }
+
+    tab-indicator {
+        length total-proportion=0.9
+        gaps-between-tabs 32
+        position "bottom"
+        corner-radius 32
+        inactive-color "#bbbbbb"
     }
 
     background-color "transparent"
@@ -153,24 +152,22 @@ spawn-at-startup "/usr/libexec/xdg-desktop-portal-wlr"
 spawn-at-startup "xwayland-satellite" ":11"
 spawn-at-startup "pipewire"
 spawn-at-startup "swaync"
-spawn-at-startup "waybar"
+// spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "fcitx5"
 
-// The line below disables client side decoration
 prefer-no-csd
 
 // Use grimshot instead, niri stock screenshot suck!
 screenshot-path "~/Pictures/Screenshots/Niri-%y-%m-%d_%H-%M-%S.png"
 
 animations {
-    //Take it slowwww....
     slowdown 1.5
 }
 
 // Apply to all windows
 window-rule {
-    geometry-corner-radius 12
+    geometry-corner-radius 24
     clip-to-geometry true
     draw-border-with-background false
 }
@@ -178,7 +175,7 @@ window-rule {
 window-rule {
     match is-active=true
     shadow {
-        on
+        // on
     }
 }
 
@@ -195,11 +192,12 @@ window-rule {
 
 window-rule {
     match is-active=false
-    opacity 0.95
+    opacity 0.94
 }
 
 // Make "Picture-in-Picture" float
 window-rule {
+    match is-floating=true
     match title="Picture-in-Picture"
     open-floating true
     open-maximized false
@@ -219,7 +217,7 @@ window-rule {
     match app-id="virt-manager"
     match app-id="discord"
 
-    exclude title="Virtual Machne Manager"
+    exclude title="Virtual Machine Manager"
 
     open-maximized true
 }
@@ -234,25 +232,6 @@ window-rule {
     min-width 800
     max-width 800
 }
-
-// Work-around for kitty slow startup
-spawn-at-startup "kitty" "-1" "--title=Kitty-Daemon"
-workspace "D" {
-}
-window-rule {
-    match title="Kitty-Daemon"
-    open-on-workspace "D"
-    max-width 1
-    max-height 1
-    opacity 0.0
-    shadow {
-        off
-    }
-    border {
-        off
-    }
-}
-spawn-at-startup "niri" "msg" "action" "focus-workspace" "2"
 
 layer-rule {
     match namespace="swww-daemon"
@@ -273,9 +252,7 @@ layer-rule {
 binds {
     Mod+Shift+Slash { show-hotkey-overlay; }
 
-    // Suggested binds for running programs: terminal, app launcher, screen locker.
-    // Mod+Return { spawn "ghostty"; }
-    Mod+Return { spawn "kitty" "-1" "--title=Kitty-Client"; }
+    Mod+Return { spawn "foot"; }
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "~/.config/niri/scripts/power.sh"; }
     Mod+Shift+B { spawn "~/.config/niri/scripts/toggle-bar.sh"; }
@@ -304,19 +281,19 @@ binds {
     // Mod+K     { focus-window-up; }
     Mod+L     { focus-column-right; }
 
-    Mod+Ctrl+Left  { move-column-left; }
-    Mod+Ctrl+Down  { move-window-down; }
-    Mod+Ctrl+Up    { move-window-up; }
-    Mod+Ctrl+Right { move-column-right; }
-    Mod+Ctrl+H     { move-column-left; }
-    // Mod+Ctrl+J     { move-window-down; }
-    // Mod+Ctrl+K     { move-window-up; }
-    Mod+Ctrl+L     { move-column-right; }
+    Mod+Shift+Left  { move-column-left; }
+    Mod+Shift+Down  { move-window-down; }
+    Mod+Shift+Up    { move-window-up; }
+    Mod+Shift+Right { move-column-right; }
+    Mod+Shift+H     { move-column-left; }
+    // Mod+Shift+J     { move-window-down; }
+    // Mod+Shift+K     { move-window-up; }
+    Mod+Shift+L     { move-column-right; }
 
     Mod+J     { focus-window-or-workspace-down; }
     Mod+K     { focus-window-or-workspace-up; }
-    Mod+Ctrl+J     { move-window-down-or-to-workspace-down; }
-    Mod+Ctrl+K     { move-window-up-or-to-workspace-up; }
+    Mod+Shift+J     { move-window-down-or-to-workspace-down; }
+    Mod+Shift+K     { move-window-up-or-to-workspace-up; }
 
     Mod+Home { focus-column-first; }
     Mod+End  { focus-column-last; }
@@ -403,17 +380,19 @@ binds {
 
     // If the window is alone, they will consume it into the nearby column to the side.
     // If the window is already in a column, they will expel it out.
-    Mod+Comma  { consume-or-expel-window-left; }
-    Mod+Period { consume-or-expel-window-right; }
+    // Mod+Comma  { consume-or-expel-window-left; }
+    // Mod+Period { consume-or-expel-window-right; }
+    Mod+U  { consume-or-expel-window-left; }
+    Mod+I { consume-or-expel-window-right; }
 
     // Consume one window from the right to the bottom of the focused column.
     // Mod+Comma  { consume-window-into-column; }
     // Expel the bottom window from the focused column to the right.
     // Mod+Period { expel-window-from-column; }
 
-    Mod+R { switch-preset-column-width; }
-    Mod+Shift+R { switch-preset-window-height; }
-    Mod+Ctrl+R { reset-window-height; }
+    Mod+Space { switch-preset-column-width; }
+    Mod+Shift+Space { switch-preset-window-height; }
+    Mod+Ctrl+Space { reset-window-height; }
     Mod+F { maximize-column; }
     Mod+Shift+F { fullscreen-window; }
 
@@ -431,8 +410,8 @@ binds {
     Mod+Shift+Equal { set-window-height "+10%"; }
 
     // Move the focused window between the floating and the tiling layout.
-    Mod+V       { toggle-window-floating; }
-    Mod+Shift+V { switch-focus-between-floating-and-tiling; }
+    Mod+T       { toggle-window-floating; }
+    Mod+Shift+T { switch-focus-between-floating-and-tiling; }
 
     Mod+W { toggle-column-tabbed-display; }
 
