@@ -73,6 +73,23 @@ output "eDP-1" {
     position x=1280 y=0
 }
 
+output "HDMI-A-2" {
+    // off
+    // Run `niri msg outputs` for info
+    mode "1920x1200"
+    scale 0.75
+    transform "normal" // normal, 90, 180, 270
+
+    // Output scale and rotation has to be taken into account for positioning:
+    // outputs are sized in logical, or scaled, pixels.
+    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
+    // so to put another output directly adjacent to it on the right, set its x to 1920.
+    // If the position is unset or results in an overlap, the output is instead placed
+    // automatically.
+    // position x=1088 y=-1200
+    position x=769 y=-1600
+}
+
 // Make sure your cursor appear in /usr/share/icons
 // Install xcursor package from os repo
 cursor {
@@ -310,10 +327,14 @@ binds {
     // Mod+Shift+Down  { focus-monitor-down; }
     // Mod+Shift+Up    { focus-monitor-up; }
     // Mod+Shift+Right { focus-monitor-right; }
-    // Mod+Shift+H     { focus-monitor-left; }
-    // Mod+Shift+J     { focus-monitor-down; }
-    // Mod+Shift+K     { focus-monitor-up; }
-    // Mod+Shift+L     { focus-monitor-right; }
+    Mod+N     { focus-monitor-left; }
+    Mod+M     { focus-monitor-down; }
+    Mod+Comma     { focus-monitor-up; }
+    Mod+Period     { focus-monitor-right; }
+    Mod+Shift+N     { move-column-to-monitor-left; }
+    Mod+Shift+M     { move-column-to-monitor-down; }
+    Mod+Shift+Comma     { move-column-to-monitor-up; }
+    Mod+Shift+Period     { move-column-to-monitor-right; }
     //
     // Mod+Shift+Ctrl+Left  { move-column-to-monitor-left; }
     // Mod+Shift+Ctrl+Down  { move-column-to-monitor-down; }
