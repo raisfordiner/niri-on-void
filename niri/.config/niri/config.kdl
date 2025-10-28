@@ -155,6 +155,7 @@ spawn-at-startup "swaync"
 // spawn-at-startup "waybar"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "fcitx5"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/idle.sh"
 
 prefer-no-csd
 
@@ -183,6 +184,7 @@ window-rule {
 /-window-rule {
     exclude app-id="zen" 
     exclude app-id="firefox"
+    exclude app-id="Firefox"
     exclude app-id="virt-manager"
     exclude app-id="discord"
     exclude app-id="foot"
@@ -214,6 +216,7 @@ window-rule {
 window-rule {
     match app-id="zen"
     match app-id="firefox"
+    match app-id="Firefox"
     match app-id="virt-manager"
     match app-id="discord"
 
@@ -256,9 +259,10 @@ binds {
     Mod+D { spawn "fuzzel"; }
     Mod+P { spawn "~/.config/niri/scripts/power.sh"; }
     Mod+Shift+B { spawn "~/.config/niri/scripts/toggle-bar.sh"; }
+    Mod+Ctrl+E { spawn "~/.config/niri/scripts/lock-screen.sh"; }
     // Super+Alt+L { spawn "swaylock"; }
     Mod+Shift+S { spawn "grimshot" "copy" "area"; }
-    Mod+Shift+N { spawn "swaync-client" "-t"; }
+    Mod+Shift+P { spawn "swaync-client" "-t"; }
 
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
