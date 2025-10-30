@@ -1,9 +1,9 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-SCREENSHOT="/tmp/swaylockshot.png"
-BLURRED_SCREENSHOT="/tmp/swaylockshotblurred.png"
+TMP_DIR="/tmp/swaylock_images"
+mkdir -p "$TMP_DIR"
 
-BLUR_ARG="20x10" 
+BLUR_ARG="20x10"
 
 COLOR_BACKGROUND="1F232888" 
 COLOR_RING_DEFAULT="0969daff"
@@ -13,13 +13,28 @@ COLOR_TEXT="ffffffff"
 COLOR_KEY_HL="4d2d00ff"   
 COLOR_LINE_CLEAR="6e778100"
 
-grim "${SCREENSHOT}"
+SWAYLOCK_IMAGES=""
 
-# magick "${SCREENSHOT}" -scale 10% -blur ${BLUR_ARG} -scale 1000% "${BLURRED_SCREENSHOT}"
-magick "${SCREENSHOT}" -scale 50% -blur ${BLUR_ARG} -scale 200% "${BLURRED_SCREENSHOT}"
+OUTPUTS=$(niri msg outputs | grep "Output" | awk -F'[()]' '{print $2}')
 
-swaylock \
-    -i "${BLURRED_SCREENSHOT}" \
+if [ -z "$OUTPUTS" ]; then
+    echo "No output found"
+    exit 1
+fi
+
+for OUTPUT in $OUTPUTS; do
+    SCREENSHOT="$TMP_DIR/${OUTPUT}_screen.png"
+    BLURRED_SCREENSHOT="$TMP_DIR/${OUTPUT}_blurred.png"
+
+    grim -o "$OUTPUT" "$SCREENSHOT"
+
+    magick "$SCREENSHOT" -scale 33% -blur "$BLUR_ARG" -scale 300% "$BLURRED_SCREENSHOT"
+
+    SWAYLOCK_IMAGES+="-i ${OUTPUT}:${BLURRED_SCREENSHOT} "
+done
+
+pidof swaylock || swaylock \
+    $SWAYLOCK_IMAGES \
     \
     --indicator-radius 50 \
     --indicator-thickness 8 \
@@ -47,4 +62,4 @@ swaylock \
     --key-hl-color "${COLOR_KEY_HL}" \
     --bs-hl-color "${COLOR_RING_WRONG}"
 
-rm "${SCREENSHOT}" "${BLURRED_SCREENSHOT}"
+rm -r "$TMP_DIR"
