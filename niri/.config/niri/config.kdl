@@ -61,7 +61,9 @@ output "eDP-1" {
     // off
     // Run `niri msg outputs` for info
     mode "1920x1080"
+    // @TOGGLEIT[scale 1.25][scale 1.6]multioutput
     scale 1.25
+    // scale 1.6
     transform "normal" // normal, 90, 180, 270
 
     // Output scale and rotation has to be taken into account for positioning:
@@ -74,27 +76,26 @@ output "eDP-1" {
 }
 
 output "HDMI-A-2" {
-    // off
-    // Run `niri msg outputs` for info
+    off
     mode "1920x1200"
-    scale 0.75
+    scale 1
     transform "normal" // normal, 90, 180, 270
+    position x=920 y=-1200
+}
 
-    // Output scale and rotation has to be taken into account for positioning:
-    // outputs are sized in logical, or scaled, pixels.
-    // For example, a 3840×2160 output with scale 2.0 will have a logical size of 1920×1080,
-    // so to put another output directly adjacent to it on the right, set its x to 1920.
-    // If the position is unset or results in an overlap, the output is instead placed
-    // automatically.
-    // position x=1088 y=-1200
-    position x=769 y=-1600
+output "DP-2" {
+    // off
+    mode "1920x1200"
+    scale 1
+    transform "normal" // normal, 90, 180, 270
+    position x=920 y=-1200
 }
 
 // Make sure your cursor appear in /usr/share/icons
 // Install xcursor package from os repo
 cursor {
-    xcursor-theme "BreezeX-RosePine"
-    xcursor-size 24
+    xcursor-theme "Bibata-Modern-Ice"
+    xcursor-size 16
     hide-after-inactive-ms 2000
 }
 
@@ -109,7 +110,7 @@ layout {
         proportion 0.66666
         proportion 1.0
     }
-    default-column-width { proportion 0.33333; }
+    default-column-width { proportion 1.0; }
     preset-window-heights {
         proportion 0.33333
         proportion 0.5
@@ -119,14 +120,14 @@ layout {
         // use border instead, use this when yiu have mutiple monitor
         off
         width 4
-        active-color "#000000"
+        active-color "#333333"
         inactive-color "#ffffff"
     }
 
     border {
         // off
         width 4
-        active-color "#000000"
+        active-color "#333333"
         inactive-color "#505050"
     }
 
@@ -158,6 +159,7 @@ layout {
 }
 
 overview {
+    zoom 0.25
     workspace-shadow {
         off
     }
@@ -173,6 +175,7 @@ spawn-at-startup "swaync"
 spawn-at-startup "swww-daemon"
 spawn-at-startup "fcitx5"
 spawn-at-startup "sh" "-c" "~/.config/niri/scripts/idle.sh"
+spawn-at-startup "sh" "-c" "~/.config/niri/scripts/scale-screen.sh"
 
 prefer-no-csd
 
@@ -185,9 +188,11 @@ animations {
 
 // Apply to all windows
 window-rule {
-    geometry-corner-radius 24
+    // geometry-corner-radius 24
+    geometry-corner-radius 8
     clip-to-geometry true
-    draw-border-with-background false
+    // draw-border-with-background false
+    draw-border-with-background true
 }
 
 window-rule {
@@ -211,8 +216,16 @@ window-rule {
 
 window-rule {
     match is-active=false
+    // @TOGGLEIT[opacity 1.0][opacity 0.94]opac
     opacity 0.94
 }
+
+// // Terminals are transparent
+// window-rule {
+//     match app-id="foot"
+//     opacity 0.98
+//     draw-border-with-background false
+// }
 
 // Make "Picture-in-Picture" float
 window-rule {
@@ -220,7 +233,8 @@ window-rule {
     match title="Picture-in-Picture"
     open-floating true
     open-maximized false
-    open-fullscreen false
+    open-on-output "eDP-1"
+    open-fullscreen true
     open-focused false
     opacity 1.0
     geometry-corner-radius 0
@@ -242,6 +256,12 @@ window-rule {
     open-maximized true
 }
 
+window-rule {
+    match title="satty"
+
+    open-floating true
+}
+
 // Some tweak for vm
 window-rule {
     match title="Virtual Machine Manager"
@@ -255,6 +275,7 @@ window-rule {
 
 layer-rule {
     match namespace="swww-daemon"
+    match namespace="mpvpaper"
     place-within-backdrop true
 }
 
@@ -418,8 +439,8 @@ binds {
     Mod+Space { switch-preset-column-width; }
     Mod+Shift+Space { switch-preset-window-height; }
     Mod+Ctrl+Space { reset-window-height; }
-    Mod+F { maximize-column; }
-    Mod+Shift+F { fullscreen-window; }
+    Mod+F { fullscreen-window; }
+    Mod+Shift+F { maximize-column; }
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".

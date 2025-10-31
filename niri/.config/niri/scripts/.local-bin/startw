@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+# startw: a startx for wayland
+# Place this script inside ~/.local/bin/
+# Run from tty to start wayland session
+
+pidof pipewire && pkill pipewire
+
+dbus-run-session niri --session
